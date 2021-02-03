@@ -11,6 +11,6 @@ import com.example.telegrambot.modelmysql.User;
 @Component
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	@Query(value = "Select username from user ", nativeQuery = true)
+	@Query(value = "Select name from glpi_tickets where is_deleted = 0", nativeQuery = true)
 	List<String> usernameListNative();
 }

@@ -8,15 +8,15 @@ import javax.persistence.Table;
 import com.example.telegrambot.util.GenericEntity;
 
 @Entity
-@Table(name = "user")
+@Table(name = "glpi_tickets")
 @AttributeOverride(name = "id", column = @Column(name = "id"))
 public class User extends GenericEntity {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "username")
+	@Column(name = "name")
 	private String username;
-	@Column(name = "email")
+	@Column(name = "content")
 	private String email;
 
 	
