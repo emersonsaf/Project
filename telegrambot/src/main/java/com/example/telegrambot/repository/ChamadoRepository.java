@@ -7,11 +7,16 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 import com.example.telegrambot.model.Chamado;
-import com.example.telegrambot.modelmysql.User;
+import com.example.telegrambot.modelmysql.GlpiChamados;
 
 @Component
 public interface ChamadoRepository extends JpaRepository<Chamado, Long> {
 
 	@Query(value = "Select nm_chamado,enviado,titulo,descricao from chamados where dt_exclusao is null ", nativeQuery = true)
 	List<Object[]> chamadosListNative();
+	
+	@Query(value = "Select nm_chamado from chamados where dt_exclusao is null and enviado is null", nativeQuery = true)
+	List<Integer> chamadosIdListNative();
+	
+	
 }

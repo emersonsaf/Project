@@ -10,7 +10,7 @@ import com.example.telegrambot.util.GenericEntity;
 @Entity
 @Table(name = "glpi_tickets")
 @AttributeOverride(name = "id", column = @Column(name = "id"))
-public class User extends GenericEntity {
+public class GlpiChamados extends GenericEntity {
 	
 	private static final long serialVersionUID = 1L;
 

@@ -44,10 +44,12 @@ public class GlpiTelegramMobitBot extends TelegramLongPollingBot {
 		return "1619038022:AAEsyKaNDTAFeXUDM4jx-rW7DSjlNL0KvNI";
 	}
 	
+	
+	
 	public void sendMessageTest() {
 		SendMessage messageToSend = new SendMessage();
 		messageToSend.setChatId("-349225705");
-		messageToSend.setText("Mensagem de teste. Certamente não foi o piks");
+		messageToSend.setText("Ti lasca ai. Certamente não foi o piks");
 		try {
 			System.out.println("Mensagem de teste enviada");
 			execute(messageToSend);
@@ -56,6 +58,8 @@ public class GlpiTelegramMobitBot extends TelegramLongPollingBot {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 }
 //752388301 id do firu

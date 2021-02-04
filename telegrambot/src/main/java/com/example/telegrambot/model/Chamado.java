@@ -1,9 +1,13 @@
 package com.example.telegrambot.model;
 
+import java.util.Date;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.example.telegrambot.util.GenericEntity;
 
@@ -16,14 +20,20 @@ public class Chamado extends GenericEntity {
 
 	@Column(name = "nm_chamado")
 	private String nmchamado;
+	
 	@Column(name = "titulo")
 	private String titulo;
+	
 	@Column(name = "descricao")
 	private String descricao;
+	
 	@Column(name = "enviado")
-	private String enviado;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date enviado;
+	
 	@Column(name = "dt_exclusao")
-	private String dtexclusao;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dtexclusao;
 
 	public String getNmchamado() {
 		return nmchamado;
@@ -49,20 +59,24 @@ public class Chamado extends GenericEntity {
 		this.descricao = descricao;
 	}
 
-	public String getEnviado() {
+	public Date getEnviado() {
 		return enviado;
 	}
 
-	public void setEnviado(String enviado) {
+	public void setEnviado(Date enviado) {
 		this.enviado = enviado;
 	}
 
-	public String getDtexclusao() {
+	public Date getDtexclusao() {
 		return dtexclusao;
 	}
 
-	public void setDtexclusao(String dtexclusao) {
+	public void setDtexclusao(Date dtexclusao) {
 		this.dtexclusao = dtexclusao;
 	}
+
+	
+
+	
 
 }
