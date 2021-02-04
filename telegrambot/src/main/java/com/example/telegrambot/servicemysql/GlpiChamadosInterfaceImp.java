@@ -28,7 +28,12 @@ public class GlpiChamadosInterfaceImp implements GlpiChamadosInterface{
 
 	@Override
 	public List<Object[]> newGlpiTicketsTodayListNative(List<Integer> ticketNumbers) {
-		return repository.newGlpiTicketsListCurrentDateNative(ticketNumbers);
+		if(ticketNumbers.size()>0) {
+			return repository.newGlpiTicketsListCurrentDateNative(ticketNumbers);
+		}else {
+			return repository.newGlpiTicketsListCurrentDateListEmptyNative();
+		}
+		
 	}
 
 	

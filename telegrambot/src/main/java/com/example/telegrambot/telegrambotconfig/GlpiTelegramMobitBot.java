@@ -48,10 +48,23 @@ public class GlpiTelegramMobitBot extends TelegramLongPollingBot {
 	
 	public void sendMessageTest() {
 		SendMessage messageToSend = new SendMessage();
-		messageToSend.setChatId("-349225705");
-		messageToSend.setText("Ti lasca ai. Certamente não foi o piks");
+		messageToSend.setChatId("-1001424947976");
+		messageToSend.setText("Enviado pelo controller. Certamente não foi o piks");
 		try {
 			System.out.println("Mensagem de teste enviada");
+			execute(messageToSend);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendMessageGlpiTicket(String ticketNumber, String ticketTitle, String ticketDescription) {
+		SendMessage messageToSend = new SendMessage();
+		messageToSend.setChatId("-1001424947976");
+		messageToSend.setText("Novo chamado: " + ticketNumber + " \n" + ticketTitle + " \n" + ticketDescription);
+		try {
+			System.out.println("Mensagem de ticket enviada");
 			execute(messageToSend);
 			
 		}catch (Exception e) {

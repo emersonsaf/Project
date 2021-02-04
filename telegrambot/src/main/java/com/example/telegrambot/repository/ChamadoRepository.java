@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.telegrambot.model.Chamado;
@@ -19,4 +20,9 @@ public interface ChamadoRepository extends JpaRepository<Chamado, Long> {
 	List<Integer> chamadosIdListNative();
 	
 	
+	@Query(value = "Select nm_chamado,titulo,descricao  from chamados where dt_exclusao is null and enviado is null", nativeQuery = true)
+	List<Object[]> ticketsToSendListNative();
+	
+	
+	Chamado findByNmChamadoAndDtExclusao(String nmChamado, Date dtExclusao);
 }

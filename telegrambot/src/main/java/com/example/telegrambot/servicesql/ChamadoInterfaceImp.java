@@ -33,8 +33,24 @@ public class ChamadoInterfaceImp implements ChamadoInterface{
 	
 	@Override
 	public void remove(Chamado chamado) {
-		chamado.setDtexclusao(new Date());
+		chamado.setDtExclusao(new Date());
 		repository.save(chamado);
+	}
+
+	@Override
+	public List<Object[]> ticketsToSendListNative() {
+		return repository.ticketsToSendListNative();
+	}
+
+	@Override
+	public void setSent(Chamado chamado) {
+		chamado.setEnviado(new Date());
+		repository.save(chamado);
+	}
+
+	@Override
+	public Chamado findByNmchamadoAndDtexclusao(String nmChamado, Date dtExclusao) {
+		return repository.findByNmChamadoAndDtExclusao(nmChamado, dtExclusao);
 	}
 	
 }

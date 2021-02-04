@@ -11,6 +11,10 @@ import javax.persistence.TemporalType;
 
 import com.example.telegrambot.util.GenericEntity;
 
+/**
+ * @author ericksouza
+ *
+ */
 @Entity
 @Table(name = "chamados")
 @AttributeOverride(name = "id", column = @Column(name = "id"))
@@ -19,7 +23,7 @@ public class Chamado extends GenericEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "nm_chamado")
-	private String nmchamado;
+	private String nmChamado;
 	
 	@Column(name = "titulo")
 	private String titulo;
@@ -33,15 +37,9 @@ public class Chamado extends GenericEntity {
 	
 	@Column(name = "dt_exclusao")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dtexclusao;
+	private Date dtExclusao;
 
-	public String getNmchamado() {
-		return nmchamado;
-	}
 
-	public void setNmchamado(String nmchamado) {
-		this.nmchamado = nmchamado;
-	}
 
 	public String getTitulo() {
 		return titulo;
@@ -67,14 +65,23 @@ public class Chamado extends GenericEntity {
 		this.enviado = enviado;
 	}
 
-	public Date getDtexclusao() {
-		return dtexclusao;
+	public String getNmChamado() {
+		return nmChamado;
 	}
 
-	public void setDtexclusao(Date dtexclusao) {
-		this.dtexclusao = dtexclusao;
+	public void setNmChamado(String nmChamado) {
+		this.nmChamado = nmChamado;
 	}
 
+	public Date getDtExclusao() {
+		return dtExclusao;
+	}
+
+	public void setDtExclusao(Date dtExclusao) {
+		this.dtExclusao = dtExclusao;
+	}
+
+	
 	
 
 	
