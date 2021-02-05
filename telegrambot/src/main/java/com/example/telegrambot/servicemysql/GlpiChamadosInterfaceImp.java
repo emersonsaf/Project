@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.telegrambot.modelmysql.GlpiChamados;
 import com.example.telegrambot.repositorymysql.GlpiChamadosRepository;
 
 
@@ -27,13 +28,24 @@ public class GlpiChamadosInterfaceImp implements GlpiChamadosInterface{
 	}
 
 	@Override
-	public List<Object[]> newGlpiTicketsTodayListNative(List<Integer> ticketNumbers) {
-		if(ticketNumbers.size()>0) {
-			return repository.newGlpiTicketsListCurrentDateNative(ticketNumbers);
-		}else {
-			return repository.newGlpiTicketsListCurrentDateListEmptyNative();
-		}
-		
+	public List<Object[]> newGlpiTicketsTodayListNative() {
+			return repository.newGlpiTicketsListCurrentDateNative();
+	}
+
+	@Override
+	public void setImported(GlpiChamados glpiChamado) {
+		glpiChamado.setImported("1");
+		repository.save(glpiChamado);
+	}
+
+	@Override
+	public void save(GlpiChamados glpiChamado) {
+		repository.save(glpiChamado);
+	}
+
+	@Override
+	public GlpiChamados findById(long id) {
+		return repository.findById(id);
 	}
 
 	

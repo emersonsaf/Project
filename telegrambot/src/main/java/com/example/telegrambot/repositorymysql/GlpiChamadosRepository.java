@@ -27,8 +27,8 @@ public interface GlpiChamadosRepository extends JpaRepository<GlpiChamados, Long
 			"join glpi_itilcategories cat on cat.id = tic.itilcategories_id and cat.itilcategories_id in (648,661,660,659,658,657,656,655,654, " + 
 			"653,652,651,650,649,647,646,846) and cat.entities_id = 1 " + 
 			"where tic.date >= current_date() and is_deleted = 0 "
-			+ "and tic.id not in(?1)", nativeQuery = true)
-	List<Object[]> newGlpiTicketsListCurrentDateNative(List<Integer> ticketNumbers);
+			+ "and tic.imported = 0", nativeQuery = true)
+	List<Object[]> newGlpiTicketsListCurrentDateNative();
 
 
 	@Query(value = "SELECT tic.id,tic.name,tic.content FROM glpi_tickets tic " + 
@@ -37,6 +37,8 @@ public interface GlpiChamadosRepository extends JpaRepository<GlpiChamados, Long
 			"where tic.date >= current_date() and is_deleted = 0 "
 			, nativeQuery = true)
 	List<Object[]> newGlpiTicketsListCurrentDateListEmptyNative();
+	
+	GlpiChamados findById(long id);
 	
 	
 }

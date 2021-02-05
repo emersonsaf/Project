@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import com.example.telegrambot.model.Chamado;
+import com.example.telegrambot.modelmysql.GlpiChamados;
 import com.example.telegrambot.servicemysql.GlpiChamadosInterface;
 import com.example.telegrambot.servicesql.ChamadoInterface;
 import com.example.telegrambot.telegrambotconfig.GlpiTelegramMobitBot;
@@ -36,7 +37,6 @@ public class TicketsController {
 	@PostConstruct
 	public void init() {
 
-		findChamadoIdList();
 		findNewGlpiTickets();
 		saveNewChamadosOnSqlServerDatabase();
 		findTicketsToSend();
@@ -111,6 +111,12 @@ public class TicketsController {
 			newTicket.setDescricao(ticket[2].toString());
 			try {
 				chamadointerface.save(newTicket);
+				//salvar importacao no glpi
+				
+				GlpiChamados glpiticketToImport = new GlpiChamados();
+				glpiticketToImport = glpiticketsinterface.findById(Long.parseLong(ticket[0].toString()));
+				glpiticketsinterface.setImported(glpiticketToImport);
+				System.out.println("Chamado: " + glpiticketToImport.getId().toString() + " importado!");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -121,12 +127,7 @@ public class TicketsController {
 
 	public void findNewGlpiTickets() {
 		newGlpiTicketsList = new ArrayList<Object[]>();
-		newGlpiTicketsList = glpiticketsinterface.newGlpiTicketsTodayListNative(chamadosIdList);
-	}
-
-	public void findChamadoIdList() {
-		chamadosIdList = new ArrayList<Integer>();
-		chamadosIdList = chamadointerface.chamadosIdListNative();
+		newGlpiTicketsList = glpiticketsinterface.newGlpiTicketsTodayListNative();
 	}
 
 	public List<Object[]> getChamadosnameList() {

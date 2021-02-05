@@ -17,21 +17,20 @@ public class GlpiTelegramMobitBot extends TelegramLongPollingBot {
 	@Override
 	public void onUpdateReceived(Update update) {
 		// We check if the update has a message and the message has text
-		if (update.hasMessage() && update.getMessage().hasText()) {
-			SendMessage messageToSend = new SendMessage(); // Create a SendMessage object with mandatory fields
-			messageToSend.setChatId(update.getMessage().getChatId().toString());
-			messageToSend.setText(update.getMessage().getText());
-			try {
-				System.out.println(messageToSend.getChatId());
-				System.out.println(messageToSend.getText());
-				System.out.println(update.getMessage().getAuthorSignature());
-				System.out.println(update.getMessage().getFrom());
-				System.out.println(update.getMessage().getLocation());
-				execute(messageToSend); // Call method to send the message
-			} catch (TelegramApiException e) {
-				e.printStackTrace();
-			}
-		}
+		/*
+		 * if (update.hasMessage() && update.getMessage().hasText()) { SendMessage
+		 * messageToSend = new SendMessage(); // Create a SendMessage object with
+		 * mandatory fields
+		 * messageToSend.setChatId(update.getMessage().getChatId().toString());
+		 * messageToSend.setText(update.getMessage().getText()); try {
+		 * System.out.println(messageToSend.getChatId());
+		 * System.out.println(messageToSend.getText());
+		 * System.out.println(update.getMessage().getAuthorSignature());
+		 * System.out.println(update.getMessage().getFrom());
+		 * System.out.println(update.getMessage().getLocation());
+		 * execute(messageToSend); // Call method to send the message } catch
+		 * (TelegramApiException e) { e.printStackTrace(); } }
+		 */
 	}
 
 	@Override
@@ -48,10 +47,11 @@ public class GlpiTelegramMobitBot extends TelegramLongPollingBot {
 	
 	public void sendMessageTest() {
 		SendMessage messageToSend = new SendMessage();
+		messageToSend.setParseMode("MarkDown");
 		messageToSend.setChatId("-1001424947976");
-		messageToSend.setText("Enviado pelo controller. Certamente não foi o piks");
+		messageToSend.setText("Enviado pelo <b>controller</b>. <strong>Certamente</strong> não foi o *piks*");
 		try {
-			System.out.println("Mensagem de teste enviada");
+			System.out.println("Mensagem de **teste** enviada");
 			execute(messageToSend);
 			
 		}catch (Exception e) {
@@ -61,8 +61,11 @@ public class GlpiTelegramMobitBot extends TelegramLongPollingBot {
 	
 	public void sendMessageGlpiTicket(String ticketNumber, String ticketTitle, String ticketDescription) {
 		SendMessage messageToSend = new SendMessage();
+		messageToSend.setParseMode("MarkDown");
 		messageToSend.setChatId("-1001424947976");
-		messageToSend.setText("Novo chamado: " + ticketNumber + " \n" + ticketTitle + " \n" + ticketDescription);
+		messageToSend.setText("Novo chamado: *" + ticketNumber + "* \n" + 
+				"Título: *" +ticketTitle + "* \n" + 
+					"Descrição: *"+ticketDescription + "*");
 		try {
 			System.out.println("Mensagem de ticket enviada");
 			execute(messageToSend);

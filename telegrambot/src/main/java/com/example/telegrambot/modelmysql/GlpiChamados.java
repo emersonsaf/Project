@@ -11,26 +11,42 @@ import com.example.telegrambot.util.GenericEntity;
 @Table(name = "glpi_tickets")
 @AttributeOverride(name = "id", column = @Column(name = "id"))
 public class GlpiChamados extends GenericEntity {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name")
-	private String username;
+	private String name;
+	
 	@Column(name = "content")
-	private String email;
+	private String content;
+	
+	@Column(name = "imported")
+	private String imported;
 
 	
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getImported() {
+		return imported;
+	}
+
+	public void setImported(String imported) {
+		this.imported = imported;
+	}
+
 }
