@@ -2,6 +2,8 @@ package com.example.telegrambot.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.annotation.PostConstruct;
 
@@ -26,7 +28,7 @@ public class TicketsController {
 
 	List<Integer> chamadosIdList;
 
-	List<Object[]> ticketsToSendList;
+	List<Object[]> ticketsToSendList = new ArrayList<Object[]>();
 
 	@Autowired
 	GlpiChamadosInterface glpiticketsinterface;
@@ -37,12 +39,28 @@ public class TicketsController {
 	@PostConstruct
 	public void init() {
 
-		findNewGlpiTickets();
-		saveNewChamadosOnSqlServerDatabase();
-		findTicketsToSend();
-		sendTickets();
-		//sendTestMessage();
-		
+		Timer timer = null;
+		long TEMPO = (1000 * 5); // chama o método a cada 3 segundos
+		if (timer == null) {
+			timer = new Timer();
+			TimerTask tarefa = new TimerTask() {
+				public void run() {
+					try {
+
+						findNewGlpiTickets();
+						saveNewChamadosOnSqlServerDatabase();
+						findTicketsToSend();
+						sendTickets();
+						// sendTestMessage();
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			};
+			timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
+
+		}
 
 		for (Object[] ticket : newGlpiTicketsList) {
 			System.out.println(ticket[0]);
@@ -56,7 +74,7 @@ public class TicketsController {
 		ticketsToSendList = new ArrayList<Object[]>();
 		ticketsToSendList = chamadointerface.ticketsToSendListNative();
 	}
-	
+
 	public void sendTestMessage() {
 		try {
 			TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
@@ -64,7 +82,6 @@ public class TicketsController {
 			GlpiTelegramMobitBot botglpi = new GlpiTelegramMobitBot();
 			botsApi.registerBot(botglpi);
 			botglpi.sendMessageTest();
-			
 
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
@@ -111,8 +128,8 @@ public class TicketsController {
 			newTicket.setDescricao(ticket[2].toString());
 			try {
 				chamadointerface.save(newTicket);
-				//salvar importacao no glpi
-				
+				// salvar importacao no glpi
+
 				GlpiChamados glpiticketToImport = new GlpiChamados();
 				glpiticketToImport = glpiticketsinterface.findById(Long.parseLong(ticket[0].toString()));
 				glpiticketsinterface.setImported(glpiticketToImport);
