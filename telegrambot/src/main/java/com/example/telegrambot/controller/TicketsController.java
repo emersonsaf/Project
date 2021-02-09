@@ -39,8 +39,20 @@ public class TicketsController {
 	@PostConstruct
 	public void init() {
 
+		findNewGlpiTickets();
+		saveNewChamadosOnSqlServerDatabase();
+		findTicketsToSend();
+		sendTickets();
+		//sendTestMessage();
+		
+		excecuteController();
+
+	}
+
+	public void excecuteController() {
+
 		Timer timer = null;
-		long TEMPO = (1000 * 5); // chama o método a cada 3 segundos
+		long TEMPO = (1000 * 60 * 15); // chama o método a cada 3 segundos
 		if (timer == null) {
 			timer = new Timer();
 			TimerTask tarefa = new TimerTask() {
@@ -51,7 +63,7 @@ public class TicketsController {
 						saveNewChamadosOnSqlServerDatabase();
 						findTicketsToSend();
 						sendTickets();
-						// sendTestMessage();
+						//sendTestMessage();
 
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -59,13 +71,6 @@ public class TicketsController {
 				}
 			};
 			timer.scheduleAtFixedRate(tarefa, TEMPO, TEMPO);
-
-		}
-
-		for (Object[] ticket : newGlpiTicketsList) {
-			System.out.println(ticket[0]);
-			System.out.println(ticket[1]);
-			System.out.println(ticket[2]);
 		}
 
 	}
@@ -97,17 +102,16 @@ public class TicketsController {
 			botsApi.registerBot(botglpi);
 
 			for (Object[] ticketToSend : ticketsToSendList) {
-				
+
 				try {
-					
-					botglpi.sendMessageGlpiTicket(ticketToSend[0].toString(),
-							ticketToSend[1].toString(),
+
+					botglpi.sendMessageGlpiTicket(ticketToSend[0].toString(), ticketToSend[1].toString(),
 							ticketToSend[2].toString());
-					
-					Chamado ticketToSave = new Chamado(); 
+
+					Chamado ticketToSave = new Chamado();
 					ticketToSave = chamadointerface.findByNmchamadoAndDtexclusao(ticketToSend[0].toString(), null);
 					chamadointerface.setSent(ticketToSave);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

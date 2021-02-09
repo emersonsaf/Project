@@ -49,7 +49,7 @@ public class HibernateMySqlConfig {
 		config.setUsername(environment.getRequiredProperty("dataSourceMysql.user"));
 		System.out.println(environment.getRequiredProperty("dataSourceMysql.user"));
 		
-		config.setPassword("root");
+		config.setPassword(environment.getRequiredProperty("dataSourceMysql.password"));
 		System.out.println(environment.getRequiredProperty("dataSourceMysql.password"));
 		
 		config.addDataSourceProperty("cachePrepStmts", environment.getRequiredProperty("dataSource.cachePrepStmts"));

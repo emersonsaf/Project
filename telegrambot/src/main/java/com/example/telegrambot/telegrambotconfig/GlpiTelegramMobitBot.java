@@ -49,9 +49,9 @@ public class GlpiTelegramMobitBot extends TelegramLongPollingBot {
 		SendMessage messageToSend = new SendMessage();
 		messageToSend.setParseMode("MarkDown");
 		messageToSend.setChatId("-1001424947976");
-		messageToSend.setText("Enviado pelo <b>controller</b>. <strong>Certamente</strong> não foi o *piks*");
+		messageToSend.setText("*Piks* passou por aqui");
 		try {
-			System.out.println("Mensagem de **teste** enviada");
+			System.out.println("Mensagem de teste enviada");
 			execute(messageToSend);
 			
 		}catch (Exception e) {
