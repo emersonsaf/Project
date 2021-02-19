@@ -43,7 +43,7 @@ public class TicketsController {
 		saveNewChamadosOnSqlServerDatabase();
 		findTicketsToSend();
 		sendTickets();
-		//sendTestMessage();
+		sendInitMessage();
 		
 		excecuteController();
 
@@ -93,6 +93,21 @@ public class TicketsController {
 		}
 
 	}
+	
+	public void sendInitMessage() {
+		try {
+			TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+
+			GlpiTelegramMobitBot botglpi = new GlpiTelegramMobitBot();
+			botsApi.registerBot(botglpi);
+			botglpi.sendMessageInit();
+
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 
 	public void sendTickets() {
 		try {
